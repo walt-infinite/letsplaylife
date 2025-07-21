@@ -2,27 +2,14 @@
   if (window.splineAppLoaded) return;
   window.splineAppLoaded = true;
 
-  const canvas = document.createElement('canvas');
-  canvas.id = 'canvas3d';
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.border = 'none';
-  canvas.style.display = 'block';
-  canvas.style.zIndex = '0';
+  const canvas = document.getElementById("canvas3d");
 
-  // 🧠 Injecter dans le bon conteneur Bubble
-  const tryInjectCanvas = () => {
-    const container = document.getElementById('spline-canvas-holder');
-    if (container) {
-      container.appendChild(canvas);
-      console.log("✅ Canvas injecté dans #spline-canvas-holder");
-    } else {
-      console.warn("⌛ En attente de #spline-canvas-holder...");
-      setTimeout(tryInjectCanvas, 100);
-    }
-  };
-  tryInjectCanvas();
+  if (!canvas) {
+    console.error("❌ canvas3d introuvable !");
+    return;
+  }
 
+  // File d’attente de callbacks
   window.splineReadyCallbacks = [];
 
   window.whenSplineReady = function (callback) {
@@ -55,8 +42,10 @@
       console.error("❌ Spline runtime non trouvé.");
       return;
     }
+
     const app = new window.spline.Runtime.Application(canvas);
     window.splineAppInstance = app;
+
     window.splineReadyCallbacks.forEach(cb => cb(app));
     window.splineReadyCallbacks.length = 0;
     console.log("✅ Spline app initialisée");
