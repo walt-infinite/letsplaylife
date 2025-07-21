@@ -4,8 +4,24 @@
 
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas3d';
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;';
-  document.body.appendChild(canvas);
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.border = 'none';
+  canvas.style.display = 'block';
+  canvas.style.zIndex = '0';
+
+  // 🧠 Injecter dans le bon conteneur Bubble
+  const tryInjectCanvas = () => {
+    const container = document.getElementById('spline-canvas-holder');
+    if (container) {
+      container.appendChild(canvas);
+      console.log("✅ Canvas injecté dans #spline-canvas-holder");
+    } else {
+      console.warn("⌛ En attente de #spline-canvas-holder...");
+      setTimeout(tryInjectCanvas, 100);
+    }
+  };
+  tryInjectCanvas();
 
   window.splineReadyCallbacks = [];
 
@@ -43,6 +59,7 @@
     window.splineAppInstance = app;
     window.splineReadyCallbacks.forEach(cb => cb(app));
     window.splineReadyCallbacks.length = 0;
+    console.log("✅ Spline app initialisée");
   };
 
   document.head.appendChild(script);
