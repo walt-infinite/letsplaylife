@@ -11,29 +11,28 @@
   // 🧠 File d'attente d'actions à lancer une fois Spline prêt
   const splineReadyCallbacks = [];
 
-  function whenSplineReady(callback) {
-    if (window.splineAppInstance) {
-      callback(window.splineAppInstance);
-    } else {
-      splineReadyCallbacks.push(callback);
-    }
+  window.whenSplineReady = function (callback) {
+  if (window.splineAppInstance) {
+    callback(window.splineAppInstance);
+  } else {
+    window.splineReadyCallbacks.push(callback);
   }
+};
 
-  // 🔁 Fonction pour charger une scène dynamiquement
-  function loadSplineScene(url) {
-    whenSplineReady((app) => {
-      app.load(url).then(() => {
-        console.log("✅ Nouvelle scène chargée :", url);
-
-        app.addEventListener('mouseDown', (e) => {
-          const name = e.target.name;
-          const uid = e.target.id;
+window.loadSplineScene = function (url) {
+  window.whenSplineReady((app) => {
+    app.load(url).then(() => {
+      console.log("✅ Scène chargée :", url);
+      app.addEventListener('mouseDown', (e) => {
+        const name = e.target.name;
+        if (typeof bubble_fn_onSplineClick === 'function') {
           bubble_fn_onSplineClick(name);
-          console.log("🖱️ Click sur :", name, " - ID: ", uid );
-        });
+        }
+        console.log("🖱️ Click sur :", name);
       });
     });
-  }
+  });
+};
 
   (function () {
     if (window.splineAppLoaded) return;
