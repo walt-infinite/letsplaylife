@@ -40,7 +40,7 @@
     window.splineAppLoaded = true;
 
     const script = document.createElement('script');
-    script.src = 'https://170a3863718286e11bd32c55c21bae4d.cdn.bubble.io/f1752751128822x807708331919547800/spline-runtime-umd.js';
+    script.src = 'https://cdn.jsdelivr.net/gh/walt-infinite/letsplaylife@main/vendor/spline-runtime/spline-runtime-umd.js';
     script.onload = () => {
       console.log("✅ Runtime chargé");
 
