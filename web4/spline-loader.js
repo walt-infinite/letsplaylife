@@ -26,7 +26,6 @@
         console.log("✅ Scène chargée :", url);
         window.splineSceneReady = true;
 
-        // Événement clic dans Spline
         app.addEventListener('mouseDown', (e) => {
           const name = e.target.name;
           if (typeof bubble_fn_onSplineClick === 'function') {
@@ -61,24 +60,22 @@
 
   // 📦 Namespace public : SplineBridge
   window.SplineBridge = {
-  showAvatar: function (nameToShow) {
-    const avatarNames = ["avatar_pig", "avatar_bunny"]; // adapte à ta scène
+    skinSwitch: function (skinNameToShow) {
+      whenSplineReady((app) => {
+        const all = app.getAllObjects();
+        const skins = all.filter(obj => obj.name.startsWith("skin_"));
 
-    window.whenSplineReady((app) => {
-      const all = app.getAllObjects();
-
-      avatarNames.forEach((name) => {
-        const obj = app.findObjectByName(name);
-        if (!obj) {
-          console.warn("❌ Objet non trouvé :", name);
+        if (skins.length === 0) {
+          console.warn("⚠️ Aucun skin trouvé (skin_...)");
           return;
         }
 
-        obj.visible = (name === nameToShow);
-      });
+        skins.forEach(obj => {
+          obj.visible = obj.name === skinNameToShow;
+        });
 
-      console.log("✅ Avatar affiché :", nameToShow);
-    });
-  }
-};
+        console.log("✅ Skin affiché :", skinNameToShow);
+      });
+    }
+  };
 })();
