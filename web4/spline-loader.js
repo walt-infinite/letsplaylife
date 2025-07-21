@@ -4,7 +4,7 @@
 
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas3d';
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1500;';
   document.body.appendChild(canvas);
 
   window.splineReadyCallbacks = [];
