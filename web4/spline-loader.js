@@ -45,5 +45,21 @@
     window.splineReadyCallbacks.length = 0;
   };
 
+  function showAvatar(nameToShow) {
+    if (typeof whenSplineReady !== 'function') {
+      console.error("❌ Spline not ready");
+      return;
+    }
+
+    whenSplineReady((app) => {
+      const avatarNames = ["avatar_pig", "avatar_bunny"]; // ⚠️ adapte à ta scène
+      avatarNames.forEach((name) => {
+        const obj = app.findObjectByName(name);
+        if (obj) obj.visible = (name === nameToShow);
+      });
+      console.log("✅ Avatar visible :", nameToShow);
+    });
+  }
+
   document.head.appendChild(script);
 })();
