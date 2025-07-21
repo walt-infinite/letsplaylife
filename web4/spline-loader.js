@@ -2,18 +2,11 @@
   if (window.splineAppLoaded) return;
   window.splineAppLoaded = true;
 
-  // Inject canvas dynamiquement
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas3d';
-  canvas.style.position = 'fixed';
-  canvas.style.top = 0;
-  canvas.style.left = 0;
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.zIndex = '0';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;';
   document.body.appendChild(canvas);
 
-  // File d’attente
   window.splineReadyCallbacks = [];
 
   window.whenSplineReady = function (callback) {
@@ -42,18 +35,12 @@
   const script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/gh/walt-infinite/letsplaylife@main/vendor/spline-runtime/spline-runtime-umd.js';
   script.onload = () => {
-    console.log("✅ Runtime chargé");
-
     if (!window.spline || !window.spline.Runtime) {
       console.error("❌ Spline runtime non trouvé.");
       return;
     }
-
-    const canvas = document.getElementById("canvas3d");
     const app = new window.spline.Runtime.Application(canvas);
     window.splineAppInstance = app;
-
-    // Exécute les callbacks
     window.splineReadyCallbacks.forEach(cb => cb(app));
     window.splineReadyCallbacks.length = 0;
   };
