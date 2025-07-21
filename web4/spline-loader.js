@@ -5,7 +5,7 @@
   // 🖼️ Crée le canvas plein écran
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas3d';
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1500;';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1504;';
   document.body.appendChild(canvas);
 
   // 🧠 Système d'attente runtime
