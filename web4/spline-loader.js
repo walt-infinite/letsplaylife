@@ -2,7 +2,8 @@
   if (window.splineAppLoaded) return;
   window.splineAppLoaded = true;
 
-  const canvas = document.getElementById("canvas3d");
+  const canvas = document.getElementById("spline-canvas");
+
 
   if (!canvas) {
     console.error("❌ canvas3d introuvable !");
