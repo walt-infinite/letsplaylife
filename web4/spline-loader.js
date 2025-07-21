@@ -2,15 +2,11 @@
   if (window.splineAppLoaded) return;
   window.splineAppLoaded = true;
 
-  const canvas = document.getElementById("spline-canvas");
+  const canvas = document.createElement('canvas');
+  canvas.id = 'canvas3d';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;';
+  document.body.appendChild(canvas);
 
-
-  if (!canvas) {
-    console.error("❌ canvas3d introuvable !");
-    return;
-  }
-
-  // File d’attente de callbacks
   window.splineReadyCallbacks = [];
 
   window.whenSplineReady = function (callback) {
@@ -43,13 +39,10 @@
       console.error("❌ Spline runtime non trouvé.");
       return;
     }
-
     const app = new window.spline.Runtime.Application(canvas);
     window.splineAppInstance = app;
-
     window.splineReadyCallbacks.forEach(cb => cb(app));
     window.splineReadyCallbacks.length = 0;
-    console.log("✅ Spline app initialisée");
   };
 
   document.head.appendChild(script);
