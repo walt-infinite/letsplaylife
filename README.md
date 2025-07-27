@@ -100,6 +100,8 @@ We are looking for the visionaries inside of you who want to dare doing what the
 
 But enough chit-chat, and let's dive into what we've been building here.
 
+--
+
 
 Bridging Bubble.io with Spline to build an amazing Web4 experience.
 
